@@ -66,7 +66,7 @@ Faites vos changements en suivant les guidelines ci-dessous.
 open index.html
 
 # Si ajout de questions : valider
-python quiz_manager.py validate 1  # ou 2, 3
+Valider le JSON sur jsonlint.com 1  # ou 2, 3
 ```
 
 ### 5. Commit & Push
@@ -160,7 +160,7 @@ Avant de soumettre une question, vérifier :
 - [ ] Sources vérifiables citées
 - [ ] Au moins 1 tag pertinent
 - [ ] Difficulté définie (1-3)
-- [ ] Validation réussie : `python quiz_manager.py validate [niveau]`
+- [ ] Validation réussie : `Valider le JSON sur jsonlint.com [niveau]`
 - [ ] Testé dans le quiz web
 
 ### Sources Acceptées
@@ -239,7 +239,7 @@ Informations supplémentaires
 ### Avant de Soumettre
 
 - [ ] Code testé localement
-- [ ] Questions validées avec `quiz_manager.py`
+- [ ] Questions validées avec validateur JSON en ligne
 - [ ] Pas de conflits avec `main`
 - [ ] Commits clairs et atomiques
 - [ ] Documentation mise à jour si nécessaire

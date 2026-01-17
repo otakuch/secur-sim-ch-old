@@ -92,8 +92,10 @@ Double-cliquer sur `index.html` fonctionne parfaitement !
 ### 1. Éditer le Fichier JSON
 
 ```bash
-# Ouvrir le fichier du niveau souhaité
-vim data/niveau1.json  # ou niveau2.json, niveau3.json
+# Ouvrir le fichier du niveau souhaité avec un éditeur de texte
+# Exemples : VS Code, Sublime Text, Notepad++, TextEdit
+
+data/niveau1.json  # ou niveau2.json, niveau3.json
 ```
 
 ### 2. Ajouter une Question
@@ -119,8 +121,8 @@ vim data/niveau1.json  # ou niveau2.json, niveau3.json
       "explication": "Pourquoi correct",
       "complement": "Info supplémentaire",
       "source": "Guidelines BLS-AED-SRC 2021"
-    },
-    // options c et d...
+    }
+    // ... options c et d
   ],
   "points": 10,
   "temps_recommande": 60,
@@ -129,15 +131,19 @@ vim data/niveau1.json  # ou niveau2.json, niveau3.json
 }
 ```
 
-### 3. Valider
+### 3. Valider le JSON
 
-```bash
-python quiz_manager.py validate 1  # ou 2, 3
-```
+**En ligne** (gratuit, facile) :
+- [jsonlint.com](https://jsonlint.com/) - Copier-coller le contenu, cliquer "Validate"
+- [jsonformatter.org](https://jsonformatter.org/) - Vérifie et formate
+
+**Dans VS Code** :
+- Ouvrir le fichier .json
+- Si erreur → soulignement rouge
 
 ### 4. Tester
 
-Ouvrir `index.html` et tester la nouvelle question !
+Ouvrir `index.html` dans le navigateur et tester la nouvelle question !
 
 ---
 
@@ -207,6 +213,7 @@ vercel
 
 - **[README.md](README.md)** - Vue d'ensemble
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Guide de contribution
+- **[about.html](about.html)** - Disclaimer et sources
 - **[docs/GUIDE-CREATION-QUESTIONS.md](docs/GUIDE-CREATION-QUESTIONS.md)** - Créer des questions
 - **[docs/STRUCTURE-100-QUESTIONS.md](docs/STRUCTURE-100-QUESTIONS.md)** - Architecture du système
 
@@ -217,10 +224,8 @@ vercel
 ### Problèmes Courants
 
 **Q: Les questions ne se chargent pas**
-```bash
-# Vérifier que le fichier JSON est valide
-python -m json.tool data/niveau1.json
-```
+
+Vérifier que le JSON est valide sur [jsonlint.com](https://jsonlint.com/)
 
 **Q: Le timer ne fonctionne pas**
 - Vérifier la console (F12) pour les erreurs
@@ -229,6 +234,20 @@ python -m json.tool data/niveau1.json
 **Q: Les styles ne s'affichent pas**
 - Vérifier que `css/style.css` existe
 - Forcer le rechargement : Ctrl+Shift+R
+
+**Q: Comment valider mes questions ?**
+
+Copier le contenu de votre fichier JSON sur [jsonlint.com](https://jsonlint.com/) et cliquer "Validate JSON"
+
+### Validation des Questions
+
+**Critères à vérifier** :
+- ✅ ID unique (n[niveau]_q[numero])
+- ✅ Exactement 4 options (a, b, c, d)
+- ✅ Exactement 1 réponse correcte
+- ✅ Toutes les options ont une explication
+- ✅ La réponse correcte a un complément
+- ✅ Sources citées
 
 ### Support
 
@@ -245,6 +264,7 @@ python -m json.tool data/niveau1.json
 - [ ] Niveau 1 testé
 - [ ] Questions aléatoires vérifiées (rejouer 2 fois)
 - [ ] Page de résultats consultée
+- [ ] Page About consultée
 - [ ] Documentation parcourue
 
 ---
