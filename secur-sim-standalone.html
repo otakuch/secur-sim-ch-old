@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECUR-SIM | Quiz de Secourisme Suisse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Level Selection */
+        .level-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .level-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .level-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .level-1 .level-badge { background: #3b82f6; }
+        .level-2 .level-badge { background: #8b5cf6; }
+        .level-3 .level-badge { background: #dc2626; }
+
+        .level-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .level-desc {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .start-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .question-number {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .cas-clinique {
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+
+        .option.selected {
+            border-color: #3b82f6;
+            background: #dbeafe;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .option.incorrect {
+            border-color: #dc2626;
+            background: #fee2e2;
+        }
+
+        .option-label {
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feedback-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .source {
+            font-size: 12px;
+            color: #64748b;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results */
+        .results {
+            text-align: center;
+        }
+
+        .score {
+            font-size: 64px;
+            font-weight: 800;
+            color: #3b82f6;
+            margin: 20px 0;
+        }
+
+        .score-label {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .badge.gold { background: #fbbf24; color: #92400e; }
+        .badge.silver { background: #d1d5db; color: #1f2937; }
+        .badge.bronze { background: #f59e0b; color: #78350f; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+            }
+
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .level-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .score {
+                font-size: 48px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🚑 SECUR-SIM</div>
+            <div class="tagline">Quiz de Formation en Secourisme Suisse</div>
+        </div>
+
+        <!-- Level Selection -->
+        <div id="levelSelection" class="level-selection">
+            <div class="level-card level-1" onclick="startQuiz(1)">
+                <div class="level-badge">NIVEAU 1</div>
+                <div class="level-title">BLS-AED</div>
+                <div class="level-desc">Secourisme de base : RCP, défibrillateur, gestes de premiers secours</div>
+                <button class="start-btn">Commencer →</button>
+            </div>
+
+            <div class="level-card level-2" onclick="startQuiz(2)">
+                <div class="level-badge">NIVEAU 2</div>
+                <div class="level-title">First Responder</div>
+                <div class="level-desc">Secourisme avancé : ABCDE, matériel paramédical, coordination</div>
+                <button class="start-btn">Commencer →</button>
+            </div>
+
+            <div class="level-card level-3" onclick="startQuiz(3)">
+                <div class="level-badge">NIVEAU 3</div>
+                <div class="level-title">Catastrophe</div>
+                <div class="level-desc">Médecine de catastrophe : triage START, gestion CBRN, KSBS</div>
+                <button class="start-btn">Commencer →</button>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="quiz-container hidden">
+            <div class="question-header">
+                <div class="question-number">Question <span id="currentQuestion">1</span> / 20</div>
+                <div class="question-number">Score: <span id="currentScore">0</span> / <span id="totalQuestions">0</span></div>
+            </div>
+
+            <div class="question-title" id="questionTitle"></div>
+            
+            <div class="cas-clinique" id="casClinique"></div>
+            
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options" id="optionsContainer"></div>
+            
+            <div class="feedback" id="feedback">
+                <div class="feedback-title" id="feedbackTitle"></div>
+                <div class="feedback-text" id="feedbackText"></div>
+                <div class="source" id="feedbackSource"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="returnToMenu()">Retour au menu</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Suivant →</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsContainer" class="quiz-container hidden">
+            <div class="results">
+                <h2>Quiz Terminé !</h2>
+                <div class="score" id="finalScore">0%</div>
+                <div class="score-label">Score final</div>
+                <div class="badge" id="badge"></div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="returnToMenu()">Retour au menu</button>
+                    <button class="btn btn-primary" onclick="restartQuiz()">Recommencer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>⚠️ Outil éducatif uniquement • En cas d'urgence: <strong>144</strong></p>
+            <p>Basé sur les référentiels IAS, KSBS, SRC • <a href="about.html">À propos</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Questions Database (20 par niveau)
+        const questionsDB = {
+            1: [ // Niveau 1 - BLS-AED
+                {
+                    titre: "Arrêt cardiaque chez un adulte",
+                    cas: "Vous trouvez un homme de 55 ans inconscient au sol. Il ne respire pas normalement. Vous êtes seul.",
+                    question: "Quelle est votre priorité immédiate ?",
+                    options: [
+                        { text: "Appeler le 144", correct: false, explication: "Important, mais la RCP doit être débutée immédiatement.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Débuter la RCP 30:2", correct: true, explication: "La RCP doit être débutée sans délai.", complement: "Les compressions thoraciques maintiennent une circulation minimale vitale.", source: "Guidelines BLS-AED-SRC 2021, p.12" },
+                        { text: "Chercher un DEA", correct: false, explication: "Important, mais après avoir débuté la RCP.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Basculer la tête en arrière", correct: false, explication: "Pas la priorité en arrêt cardiaque.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Fréquence des compressions",
+                    cas: "Vous effectuez une RCP sur un patient en arrêt cardiaque.",
+                    question: "Quelle est la fréquence correcte des compressions thoraciques ?",
+                    options: [
+                        { text: "80-100 compressions/minute", correct: false, explication: "Trop lent, risque d'inefficacité.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "100-120 compressions/minute", correct: true, explication: "Fréquence optimale recommandée.", complement: "Cette fréquence assure une circulation efficace.", source: "Guidelines BLS-AED-SRC 2021, p.14" },
+                        { text: "120-140 compressions/minute", correct: false, explication: "Trop rapide, risque d'épuisement.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "60-80 compressions/minute", correct: false, explication: "Beaucoup trop lent.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Profondeur des compressions",
+                    cas: "Vous réalisez des compressions thoraciques sur un adulte.",
+                    question: "Quelle doit être la profondeur des compressions ?",
+                    options: [
+                        { text: "3-4 cm", correct: false, explication: "Insuffisant pour une circulation efficace.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "5-6 cm", correct: true, explication: "Profondeur optimale pour un adulte.", complement: "Permet une compression efficace du cœur.", source: "Guidelines BLS-AED-SRC 2021, p.14" },
+                        { text: "7-8 cm", correct: false, explication: "Trop profond, risque de lésions.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "2-3 cm", correct: false, explication: "Beaucoup trop faible.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Position des mains pour RCP",
+                    cas: "Vous vous apprêtez à débuter une RCP.",
+                    question: "Où placez-vous vos mains pour les compressions ?",
+                    options: [
+                        { text: "Sur le sternum, moitié inférieure", correct: true, explication: "Position correcte pour comprimer le cœur.", complement: "Au centre de la poitrine, entre les mamelons.", source: "Guidelines BLS-AED-SRC 2021, p.13" },
+                        { text: "Sur le côté gauche du thorax", correct: false, explication: "Inefficace, pas sur le cœur.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Sur l'abdomen", correct: false, explication: "Incorrect et dangereux.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Sur le haut du sternum", correct: false, explication: "Position trop haute, inefficace.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Ratio compressions/insufflations",
+                    cas: "Vous êtes seul à pratiquer une RCP sur un adulte.",
+                    question: "Quel est le ratio compressions/insufflations ?",
+                    options: [
+                        { text: "15:2", correct: false, explication: "Ratio pédiatrique, pas adulte.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "30:2", correct: true, explication: "Ratio standard pour adulte.", complement: "30 compressions suivies de 2 insufflations.", source: "Guidelines BLS-AED-SRC 2021, p.15" },
+                        { text: "50:2", correct: false, explication: "Trop de compressions sans oxygénation.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "20:2", correct: false, explication: "Ratio incorrect.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Utilisation du DEA",
+                    cas: "Un DEA arrive pendant votre RCP.",
+                    question: "Que faites-vous ?",
+                    options: [
+                        { text: "Continuer la RCP", correct: false, explication: "Le DEA doit être utilisé immédiatement.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Allumer le DEA et suivre ses instructions", correct: true, explication: "Le DEA guide la réanimation.", complement: "Il analyse le rythme et conseille le choc si nécessaire.", source: "Guidelines BLS-AED-SRC 2021, p.18" },
+                        { text: "Attendre les secours", correct: false, explication: "Chaque minute compte.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Vérifier le pouls d'abord", correct: false, explication: "Le DEA prend en charge l'analyse.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Hémorragie externe",
+                    cas: "Une personne saigne abondamment du bras après une blessure.",
+                    question: "Quelle est votre première action ?",
+                    options: [
+                        { text: "Appliquer un garrot", correct: false, explication: "Seulement si compression inefficace.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Compression directe sur la plaie", correct: true, explication: "Méthode de première intention.", complement: "Avec un linge propre ou vos mains gantées.", source: "IAS - Manuel de premiers secours, p.45" },
+                        { text: "Surélever le membre", correct: false, explication: "Seul, insuffisant.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Appeler le 144 d'abord", correct: false, explication: "La compression est prioritaire.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Position latérale de sécurité",
+                    cas: "Un patient inconscient respire normalement.",
+                    question: "Dans quelle position le placez-vous ?",
+                    options: [
+                        { text: "Sur le dos", correct: false, explication: "Risque d'obstruction des voies aériennes.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Position latérale de sécurité", correct: true, explication: "Maintient les voies aériennes libres.", complement: "Sur le côté, tête en extension, bouche vers le sol.", source: "Guidelines BLS-AED-SRC 2021, p.10" },
+                        { text: "Assis", correct: false, explication: "Instable pour une personne inconsciente.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Sur le ventre", correct: false, explication: "Difficile de surveiller la respiration.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Obstruction des voies aériennes",
+                    cas: "Un adulte conscient s'étouffe et ne peut plus parler ni tousser.",
+                    question: "Quelle technique utilisez-vous ?",
+                    options: [
+                        { text: "Claques dans le dos", correct: false, explication: "Seul, peut être inefficace.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Manœuvre de Heimlich", correct: true, explication: "Technique de référence pour obstruction totale.", complement: "Compressions abdominales sous-diaphragmatiques.", source: "Guidelines BLS-AED-SRC 2021, p.11" },
+                        { text: "Encourager à tousser", correct: false, explication: "La personne ne peut plus tousser.", source: "Guidelines BLS-AED-SRC 2021" },
+                        { text: "Donner à boire", correct: false, explication: "Dangereux en cas d'obstruction.", source: "Guidelines BLS-AED-SRC 2021" }
+                    ]
+                },
+                {
+                    titre: "Brûlure thermique",
+                    cas: "Une personne s'est brûlée la main avec de l'eau bouillante.",
+                    question: "Quel est le premier geste à effectuer ?",
+                    options: [
+                        { text: "Appliquer de la glace", correct: false, explication: "Aggrave les lésions tissulaires.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Refroidir à l'eau tiède (15-20°C) pendant 20 min", correct: true, explication: "Stoppe la progression de la brûlure.", complement: "Eau courante, pas glacée, pendant au moins 20 minutes.", source: "IAS - Manuel de premiers secours, p.67" },
+                        { text: "Appliquer une pommade", correct: false, explication: "Pas en première intention.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Percer les cloques", correct: false, explication: "Risque d'infection majeur.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Malaise vagal",
+                    cas: "Une personne se sent mal, pâlit et transpire abondamment.",
+                    question: "Quelle position recommandez-vous ?",
+                    options: [
+                        { text: "Debout contre un mur", correct: false, explication: "Risque de chute.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Allongé avec jambes surélevées", correct: true, explication: "Favorise le retour veineux au cœur.", complement: "Position anti-choc, jambes à 30-45°.", source: "IAS - Manuel de premiers secours, p.89" },
+                        { text: "Assis tête entre les genoux", correct: false, explication: "Moins efficace que l'allongement.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Sur le côté", correct: false, explication: "Pas optimal pour un malaise.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Choc anaphylactique",
+                    cas: "Patient avec réaction allergique sévère, détresse respiratoire.",
+                    question: "Si disponible, quel médicament utiliser en urgence ?",
+                    options: [
+                        { text: "Aspirine", correct: false, explication: "Pas indiqué pour allergie.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Adrénaline auto-injecteur (EpiPen)", correct: true, explication: "Traitement d'urgence du choc anaphylactique.", complement: "Injection intramusculaire dans la cuisse.", source: "IAS - Manuel de premiers secours, p.93" },
+                        { text: "Paracétamol", correct: false, explication: "Inefficace pour une réaction allergique.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Antibiotique", correct: false, explication: "Pas indiqué en urgence allergique.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Traumatisme crânien",
+                    cas: "Patient conscient après chute avec choc à la tête.",
+                    question: "Quel signe nécessite une surveillance accrue ?",
+                    options: [
+                        { text: "Douleur au point d'impact", correct: false, explication: "Normal après un choc.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Vomissements répétés", correct: true, explication: "Signe d'hypertension intracrânienne.", complement: "Surveiller conscience, pupilles, vomissements.", source: "IAS - Manuel de premiers secours, p.78" },
+                        { text: "Petite bosse", correct: false, explication: "Réaction normale au choc.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Légère céphalée", correct: false, explication: "Fréquent après un choc.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Fracture fermée",
+                    cas: "Suspicion de fracture du poignet après chute.",
+                    question: "Quelle est la conduite à tenir ?",
+                    options: [
+                        { text: "Remettre l'os en place", correct: false, explication: "Dangereux, réservé aux médecins.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Immobiliser dans la position trouvée", correct: true, explication: "Évite l'aggravation des lésions.", complement: "Écharpe ou attelle improvisée.", source: "IAS - Manuel de premiers secours, p.72" },
+                        { text: "Masser la zone", correct: false, explication: "Aggrave les lésions.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Faire bouger pour tester", correct: false, explication: "Peut aggraver la fracture.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Crise d'épilepsie",
+                    cas: "Personne en crise convulsive généralisée.",
+                    question: "Que faites-vous pendant la crise ?",
+                    options: [
+                        { text: "Maintenir de force les membres", correct: false, explication: "Risque de blessure pour vous et la victime.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Protéger la tête et dégager l'environnement", correct: true, explication: "Évite les traumatismes.", complement: "Ne rien mettre dans la bouche, surveiller la respiration.", source: "IAS - Manuel de premiers secours, p.91" },
+                        { text: "Mettre un objet dans la bouche", correct: false, explication: "Risque d'obstruction et de blessure.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Jeter de l'eau froide", correct: false, explication: "Inefficace et dangereux.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Hypoglycémie",
+                    cas: "Diabétique conscient avec tremblements et sueurs.",
+                    question: "Que donnez-vous en premier ?",
+                    options: [
+                        { text: "Insuline", correct: false, explication: "Aggraverait l'hypoglycémie.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Sucre rapide (jus, sucre)", correct: true, explication: "Remonte rapidement la glycémie.", complement: "15-20g de glucides rapides, puis sucres lents.", source: "IAS - Manuel de premiers secours, p.95" },
+                        { text: "Pain complet", correct: false, explication: "Sucre trop lent.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Eau seulement", correct: false, explication: "N'apporte pas de glucose.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Saignement de nez",
+                    cas: "Épistaxis abondante chez un adulte.",
+                    question: "Quelle position adoptez-vous ?",
+                    options: [
+                        { text: "Allongé sur le dos", correct: false, explication: "Sang dans la gorge, risque d'inhalation.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Assis, tête penchée en avant", correct: true, explication: "Évite l'inhalation du sang.", complement: "Comprimer les narines 10 minutes.", source: "IAS - Manuel de premiers secours, p.48" },
+                        { text: "Tête en arrière", correct: false, explication: "Sang coule dans la gorge.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Debout en mouvement", correct: false, explication: "Risque de malaise.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Piqûre de guêpe",
+                    cas: "Personne piquée par une guêpe, pas d'allergie connue.",
+                    question: "Quelle est la conduite à tenir ?",
+                    options: [
+                        { text: "Retirer le dard avec les doigts", correct: false, explication: "Aggrave l'injection de venin.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Appliquer du froid", correct: true, explication: "Réduit douleur et inflammation.", complement: "Surveiller signes d'allergie : gonflement, difficulté respiratoire.", source: "IAS - Manuel de premiers secours, p.101" },
+                        { text: "Mettre de la chaleur", correct: false, explication: "Aggrave l'inflammation.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Inciser la piqûre", correct: false, explication: "Risque d'infection majeur.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Hypothermie légère",
+                    cas: "Personne exposée au froid, consciente, frissonnante.",
+                    question: "Comment la réchauffer ?",
+                    options: [
+                        { text: "Bain chaud immédiat", correct: false, explication: "Choc thermique, risque cardiaque.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Réchauffement progressif, vêtements secs", correct: true, explication: "Évite le choc thermique.", complement: "Mettre à l'abri, vêtements secs, boisson chaude sucrée.", source: "IAS - Manuel de premiers secours, p.103" },
+                        { text: "Frictionner vigoureusement", correct: false, explication: "Aggrave la vasoconstriction.", source: "IAS - Manuel de premiers secours" },
+                        { text: "Donner de l'alcool", correct: false, explication: "Vasodilatation aggrave l'hypothermie.", source: "IAS - Manuel de premiers secours" }
+                    ]
+                },
+                {
+                    titre: "Appel d'urgence 144",
+                    cas: "Vous devez appeler les secours pour un arrêt cardiaque.",
+                    question: "Dans quel ordre donnez-vous les informations ?",
+                    options: [
+                        { text: "Votre nom puis la situation", correct: false, explication: "La situation d'abord.", source: "REGA - Protocole 144" },
+                        { text: "Où, Quoi, Combien, (Qui)", correct: true, explication: "Protocole standard 144.", complement: "Lieu précis, nature urgence, nombre victimes, votre nom.", source: "REGA - Protocole 144, p.5" },
+                        { text: "Combien puis Où", correct: false, explication: "Lieu d'abord pour envoyer secours.", source: "REGA - Protocole 144" },
+                        { text: "Uniquement l'adresse", correct: false, explication: "Informations insuffisantes.", source: "REGA - Protocole 144" }
+                    ]
+                }
+            ],
+            2: [ // Niveau 2 - First Responder (10 questions simples pour l'exemple)
+                {
+                    titre: "Évaluation ABCDE",
+                    cas: "Polytraumatisé conscient après AVP.",
+                    question: "Que signifie le 'A' dans ABCDE ?",
+                    options: [
+                        { text: "Artères", correct: false, explication: "Pas dans ABCDE.", source: "PHTLS 9e édition" },
+                        { text: "Airway (Voies aériennes)", correct: true, explication: "Première priorité de l'évaluation.", complement: "Vérifier perméabilité et protéger rachis.", source: "PHTLS 9e édition, p.156" },
+                        { text: "Anxiété", correct: false, explication: "Pas dans ABCDE.", source: "PHTLS 9e édition" },
+                        { text: "Articulations", correct: false, explication: "Pas dans ABCDE.", source: "PHTLS 9e édition" }
+                    ]
+                },
+                {
+                    titre: "Oxygénothérapie",
+                    cas: "Patient dyspnéique, SpO2 à 88%.",
+                    question: "Quel débit d'O2 au masque haute concentration ?",
+                    options: [
+                        { text: "2-4 L/min", correct: false, explication: "Insuffisant pour masque HC.", source: "IAS First Responder" },
+                        { text: "10-15 L/min", correct: true, explication: "Débit pour masque haute concentration.", complement: "Permet d'atteindre FiO2 80-90%.", source: "IAS First Responder, p.89" },
+                        { text: "20-25 L/min", correct: false, explication: "Trop élevé, inutile.", source: "IAS First Responder" },
+                        { text: "1 L/min", correct: false, explication: "Beaucoup trop faible.", source: "IAS First Responder" }
+                    ]
+                },
+                {
+                    titre: "Choc hémorragique",
+                    cas: "Patient pâle, tachycarde, TA 80/50.",
+                    question: "Quel type de choc suspectez-vous ?",
+                    options: [
+                        { text: "Choc cardiogénique", correct: false, explication: "Pas de contexte cardiaque.", source: "PHTLS 9e édition" },
+                        { text: "Choc hypovolémique", correct: true, explication: "Signes de choc hémorragique.", complement: "Nécessite remplissage et recherche hémorragie.", source: "PHTLS 9e édition, p.234" },
+                        { text: "Choc septique", correct: false, explication: "Pas de contexte infectieux.", source: "PHTLS 9e édition" },
+                        { text: "Choc anaphylactique", correct: false, explication: "Pas de contexte allergique.", source: "PHTLS 9e édition" }
+                    ]
+                },
+                {
+                    titre: "Trauma thoracique",
+                    cas: "Plaie thoracique soufflante après coup de couteau.",
+                    question: "Quel pansement appliquez-vous ?",
+                    options: [
+                        { text: "Pansement occlusif 3 côtés", correct: true, explication: "Permet expiration, évite pneumothorax suffocant.", complement: "Un côté ouvert sert de valve.", source: "PHTLS 9e édition, p.287" },
+                        { text: "Pansement simple", correct: false, explication: "Insuffisant pour plaie soufflante.", source: "PHTLS 9e édition" },
+                        { text: "Pansement occlusif 4 côtés", correct: false, explication: "Risque de pneumothorax compressif.", source: "PHTLS 9e édition" },
+                        { text: "Rien, laisser ouvert", correct: false, explication: "Aggrave le pneumothorax.", source: "PHTLS 9e édition" }
+                    ]
+                },
+                {
+                    titre: "Trauma rachidien",
+                    cas: "Chute de 3m, douleur dorsale, conscient.",
+                    question: "Comment immobilisez-vous le rachis ?",
+                    options: [
+                        { text: "Collier cervical seul", correct: false, explication: "Insuffisant, tout le rachis.", source: "PHTLS 9e édition" },
+                        { text: "Collier + matelas coquille", correct: true, explication: "Immobilisation complète rachis.", complement: "Maintien tête-cou-tronc alignés.", source: "PHTLS 9e édition, p.312" },
+                        { text: "Aucune immobilisation", correct: false, explication: "Dangereux vu le mécanisme.", source: "PHTLS 9e édition" },
+                        { text: "Seulement matelas", correct: false, explication: "Collier cervical nécessaire.", source: "PHTLS 9e édition" }
+                    ]
+                },
+                {
+                    titre: "Glasgow Coma Scale",
+                    cas: "Patient ouvre les yeux à la douleur, sons incompréhensibles, flexion à la douleur.",
+                    question: "Quel est le score de Glasgow ?",
+                    options: [
+                        { text: "15", correct: false, explication: "Score maximal, pas ce cas.", source: "PHTLS 9e édition" },
+                        { text: "8", correct: true, explication: "Y2 + V2 + M4 = 8.", complement: "Score < 8 = intubation nécessaire.", source: "PHTLS 9e édition, p.189" },
+                        { text: "12", correct: false, explication: "Trop élevé pour ce tableau.", source: "PHTLS 9e édition" },
+                        { text: "3", correct: false, explication: "Score minimal, pas ce cas.", source: "PHTLS 9e édition" }
+                    ]
+                },
+                {
+                    titre: "Œdème pulmonaire aigu",
+                    cas: "Patient dyspnéique, crépitants, mousses rosées.",
+                    question: "Quelle position adoptez-vous ?",
+                    options: [
+                        { text: "Allongé à plat", correct: false, explication: "Aggrave la dyspnée.", source: "IAS First Responder" },
+                        { text: "Demi-assis ou assis", correct: true, explication: "Facilite la respiration.", complement: "Diminue le retour veineux et la précharge.", source: "IAS First Responder, p.134" },
+                        { text: "Trendelenburg", correct: false, explication: "Contrindiqué, aggrave OAP.", source: "IAS First Responder" },
+                        { text: "Sur le côté", correct: false, explication: "Pas optimal pour dyspnée.", source: "IAS First Responder" }
+                    ]
+                },
+                {
+                    titre: "AVC (Accident Vasculaire Cérébral)",
+                    cas: "Homme 68 ans, hémiparésie gauche brutale.",
+                    question: "Quelle échelle utilisez-vous pour dépister un AVC ?",
+                    options: [
+                        { text: "Échelle de Borg", correct: false, explication: "Pour dyspnée, pas AVC.", source: "IAS First Responder" },
+                        { text: "Test FAST", correct: true, explication: "Face, Arms, Speech, Time.", complement: "Dépistage rapide des signes d'AVC.", source: "IAS First Responder, p.145" },
+                        { text: "Score APGAR", correct: false, explication: "Pour nouveau-nés.", source: "IAS First Responder" },
+                        { text: "Échelle de Ramsay", correct: false, explication: "Pour sédation.", source: "IAS First Responder" }
+                    ]
+                },
+                {
+                    titre: "Infarctus du myocarde",
+                    cas: "Douleur thoracique constrictive, irradiation bras gauche.",
+                    question: "Quelle médication donnez-vous si protocole ?",
+                    options: [
+                        { text: "Morphine", correct: false, explication: "Pas en première intention.", source: "IAS First Responder" },
+                        { text: "Aspirine 300mg", correct: true, explication: "Antiagrégant plaquettaire.", complement: "À croquer pour action rapide.", source: "IAS First Responder, p.128" },
+                        { text: "Paracétamol", correct: false, explication: "Inefficace pour IDM.", source: "IAS First Responder" },
+                        { text: "Antibiotique", correct: false, explication: "Pas indiqué.", source: "IAS First Responder" }
+                    ]
+                },
+                {
+                    titre: "Transmission au 144",
+                    cas: "Polytrauma, vous transmettez au SMUR.",
+                    question: "Quel schéma de transmission utilisez-vous ?",
+                    options: [
+                        { text: "ABCDE", correct: false, explication: "Pour évaluation, pas transmission.", source: "IAS First Responder" },
+                        { text: "SAMPLE + SAMPLER", correct: false, explication: "Pour anamnèse détaillée.", source: "IAS First Responder" },
+                        { text: "METHANE ou MIST", correct: true, explication: "Schémas de transmission structurés.", complement: "MIST: Mechanism, Injuries, Signs, Treatment.", source: "IAS First Responder, p.67" },
+                        { text: "FAST", correct: false, explication: "Pour dépistage AVC.", source: "IAS First Responder" }
+                    ]
+                }
+            ],
+            3: [ // Niveau 3 - Catastrophe (10 questions simples pour l'exemple)
+                {
+                    titre: "Triage START",
+                    cas: "Explosion, 30 victimes. Première victime : marche, blessures superficielles.",
+                    question: "Quelle catégorie de triage ?",
+                    options: [
+                        { text: "T1 - Rouge", correct: false, explication: "Patient stable qui marche.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "T3 - Vert", correct: true, explication: "Victime ambulatoire, blessures légères.", complement: "Peut attendre plusieurs heures.", source: "KSBS - Doctrine TRIAGE, p.23" },
+                        { text: "T2 - Jaune", correct: false, explication: "Pour urgences relatives.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "T4 - Noir", correct: false, explication: "Décédé ou dépassé.", source: "KSBS - Doctrine TRIAGE" }
+                    ]
+                },
+                {
+                    titre: "Victime T1",
+                    cas: "Respiration > 30/min après libération des VA, FR persiste élevée.",
+                    question: "Quelle catégorie START ?",
+                    options: [
+                        { text: "T3 - Vert", correct: false, explication: "Détresse respiratoire = prioritaire.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "T1 - Rouge", correct: true, explication: "Détresse respiratoire, priorité absolue.", complement: "Nécessite prise en charge immédiate.", source: "KSBS - Doctrine TRIAGE, p.24" },
+                        { text: "T2 - Jaune", correct: false, explication: "Trop grave pour T2.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "T4 - Noir", correct: false, explication: "Patient respire.", source: "KSBS - Doctrine TRIAGE" }
+                    ]
+                },
+                {
+                    titre: "Temps de remplissage capillaire",
+                    cas: "Triage START : TRC > 2 secondes.",
+                    question: "Que signifie ce signe ?",
+                    options: [
+                        { text: "Normal", correct: false, explication: "TRC normal < 2 sec.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "Choc circulatoire probable", correct: true, explication: "Signe de mauvaise perfusion.", complement: "Indique T1 si autres signes de gravité.", source: "KSBS - Doctrine TRIAGE, p.25" },
+                        { text: "Hypothermie", correct: false, explication: "Pas spécifique.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "Déshydratation légère", correct: false, explication: "Sous-estime la gravité.", source: "KSBS - Doctrine TRIAGE" }
+                    ]
+                },
+                {
+                    titre: "Chaîne de commandement",
+                    cas: "Catastrophe ferroviaire, vous êtes premier sur place.",
+                    question: "Quel rôle endossez-vous ?",
+                    options: [
+                        { text: "Coordinateur sanitaire", correct: false, explication: "Rôle SMUR/médecin.", source: "KSBS - Concepts de base" },
+                        { text: "Chef d'intervention sanitaire provisoire", correct: true, explication: "Premier qualifié = CIS provisoire.", complement: "Jusqu'à arrivée CIS officiel.", source: "KSBS - Concepts de base, p.45" },
+                        { text: "Simple intervenant", correct: false, explication: "Vous devez coordonner.", source: "KSBS - Concepts de base" },
+                        { text: "Observateur", correct: false, explication: "Vous devez agir.", source: "KSBS - Concepts de base" }
+                    ]
+                },
+                {
+                    titre: "Point de rassemblement",
+                    cas: "Catastrophe : où dirigez-vous les T3 (verts) ?",
+                    question: "Quelle zone ?",
+                    options: [
+                        { text: "Nid de blessés", correct: false, explication: "Pour T1/T2 en attente évacuation.", source: "KSBS - Concepts de base" },
+                        { text: "Point de rassemblement des blessés légers", correct: true, explication: "Zone spécifique pour T3.", complement: "Éloigné du danger, supervision légère.", source: "KSBS - Concepts de base, p.52" },
+                        { text: "Poste médical avancé", correct: false, explication: "Pour traitement des urgences.", source: "KSBS - Concepts de base" },
+                        { text: "Zone d'attente ambulances", correct: false, explication: "Pour véhicules, pas patients.", source: "KSBS - Concepts de base" }
+                    ]
+                },
+                {
+                    titre: "Événement CBRN - Chimique",
+                    cas: "Fuite de produit chimique, victimes dyspnéiques.",
+                    question: "Quelle est la priorité ?",
+                    options: [
+                        { text: "Sauvetage immédiat", correct: false, explication: "Risque contamination.", source: "KSBS - CBRN" },
+                        { text: "Décontamination d'urgence", correct: true, explication: "Avant tout traitement médical.", complement: "Retirer vêtements, rinçage abondant.", source: "KSBS - CBRN, p.78" },
+                        { text: "Intubation", correct: false, explication: "Après décontamination.", source: "KSBS - CBRN" },
+                        { text: "Évacuation directe hôpital", correct: false, explication: "Contaminerait l'hôpital.", source: "KSBS - CBRN" }
+                    ]
+                },
+                {
+                    titre: "Zonage d'une catastrophe",
+                    cas: "Attentat : vous devez établir des zones.",
+                    question: "Qu'est-ce que la 'zone chaude' ?",
+                    options: [
+                        { text: "Zone de traitement", correct: false, explication: "C'est la zone tiède.", source: "KSBS - Concepts de base" },
+                        { text: "Zone de danger immédiat", correct: true, explication: "Accès restreint, EPI obligatoire.", complement: "Seulement sauvetage par équipes spécialisées.", source: "KSBS - Concepts de base, p.49" },
+                        { text: "Zone d'attente", correct: false, explication: "C'est la zone froide.", source: "KSBS - Concepts de base" },
+                        { text: "Zone publique", correct: false, explication: "Au-delà du périmètre.", source: "KSBS - Concepts de base" }
+                    ]
+                },
+                {
+                    titre: "Ressources limitées",
+                    cas: "10 victimes T1, 2 ambulances disponibles.",
+                    question: "Quel principe appliquez-vous ?",
+                    options: [
+                        { text: "Premier arrivé, premier évacué", correct: false, explication: "Pas adapté à la médecine de catastrophe.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "Le plus de vies avec ressources disponibles", correct: true, explication: "Principe du triage de catastrophe.", complement: "Maximiser les survivants avec moyens limités.", source: "KSBS - Doctrine TRIAGE, p.19" },
+                        { text: "Les plus graves d'abord", correct: false, explication: "Peut épuiser ressources.", source: "KSBS - Doctrine TRIAGE" },
+                        { text: "Attendre plus de moyens", correct: false, explication: "Perte de temps critique.", source: "KSBS - Doctrine TRIAGE" }
+                    ]
+                },
+                {
+                    titre: "Communication en catastrophe",
+                    cas: "Réseau téléphonique saturé.",
+                    question: "Quel moyen de communication utilisez-vous ?",
+                    options: [
+                        { text: "SMS", correct: false, explication: "Saturé aussi.", source: "KSBS - Concepts de base" },
+                        { text: "Radio POLYCOM", correct: true, explication: "Réseau sécurisé organisations de secours.", complement: "Fonctionne indépendamment du réseau public.", source: "KSBS - Concepts de base, p.62" },
+                        { text: "Réseaux sociaux", correct: false, explication: "Non sécurisé, saturé.", source: "KSBS - Concepts de base" },
+                        { text: "Email", correct: false, explication: "Trop lent pour urgence.", source: "KSBS - Concepts de base" }
+                    ]
+                },
+                {
+                    titre: "Noria ambulancière",
+                    cas: "Vous organisez l'évacuation de 20 T1.",
+                    question: "Qu'est-ce que la noria ?",
+                    options: [
+                        { text: "Une liste d'attente", correct: false, explication: "Pas seulement.", source: "KSBS - Concepts de base" },
+                        { text: "Rotation continue des ambulances", correct: true, explication: "Système de va-et-vient organisé.", complement: "Optimise utilisation véhicules disponibles.", source: "KSBS - Concepts de base, p.58" },
+                        { text: "Un hélicoptère", correct: false, explication: "Pas spécifique.", source: "KSBS - Concepts de base" },
+                        { text: "Un point de regroupement", correct: false, explication: "C'est un processus.", source: "KSBS - Concepts de base" }
+                    ]
+                }
+            ]
+        };
+
+        // État du quiz
+        let currentLevel = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let totalAnswered = 0;
+        let selectedOption = null;
+        let questions = [];
+
+        // Démarrer un quiz
+        function startQuiz(level) {
+            currentLevel = level;
+            currentQuestionIndex = 0;
+            score = 0;
+            totalAnswered = 0;
+            selectedOption = null;
+            
+            // Charger les questions du niveau
+            questions = questionsDB[level];
+            
+            // Masquer sélection, afficher quiz
+            document.getElementById('levelSelection').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+            
+            // Afficher première question
+            displayQuestion();
+        }
+
+        // Afficher une question
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            
+            // Header
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('totalQuestions').textContent = totalAnswered;
+            
+            // Question
+            document.getElementById('questionTitle').textContent = question.titre;
+            document.getElementById('casClinique').textContent = question.cas;
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.innerHTML = `<span class="option-label">${String.fromCharCode(65 + index)}.</span> ${option.text}`;
+                div.onclick = () => selectOption(index);
+                optionsContainer.appendChild(div);
+            });
+            
+            // Réinitialiser feedback et bouton
+            document.getElementById('feedback').classList.remove('show', 'correct', 'incorrect');
+            document.getElementById('nextBtn').disabled = true;
+            selectedOption = null;
+        }
+
+        // Sélectionner une option
+        function selectOption(index) {
+            if (selectedOption !== null) return; // Déjà répondu
+            
+            selectedOption = index;
+            const question = questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            const feedback = document.getElementById('feedback');
+            const selectedOpt = question.options[index];
+            
+            // Marquer l'option sélectionnée
+            options[index].classList.add('selected');
+            
+            // Afficher la bonne réponse
+            question.options.forEach((opt, i) => {
+                if (opt.correct) {
+                    options[i].classList.add('correct');
+                } else if (i === index) {
+                    options[i].classList.add('incorrect');
+                }
+            });
+            
+            // Feedback
+            totalAnswered++;
+            if (selectedOpt.correct) {
+                score++;
+                feedback.classList.add('show', 'correct');
+                document.getElementById('feedbackTitle').textContent = '✅ Bonne réponse !';
+                document.getElementById('feedbackText').innerHTML = `
+                    <strong>Explication :</strong> ${selectedOpt.explication}<br>
+                    ${selectedOpt.complement ? `<br><strong>💡 Complément :</strong> ${selectedOpt.complement}` : ''}
+                `;
+            } else {
+                feedback.classList.add('show', 'incorrect');
+                document.getElementById('feedbackTitle').textContent = '❌ Réponse incorrecte';
+                const correctOption = question.options.find(o => o.correct);
+                document.getElementById('feedbackText').innerHTML = `
+                    <strong>Explication :</strong> ${selectedOpt.explication}<br>
+                    <br><strong>La bonne réponse était :</strong> ${correctOption.text}<br>
+                    <strong>Car :</strong> ${correctOption.explication}
+                    ${correctOption.complement ? `<br><br><strong>💡 Complément :</strong> ${correctOption.complement}` : ''}
+                `;
+            }
+            
+            document.getElementById('feedbackSource').textContent = `📚 Source : ${selectedOpt.source}`;
+            
+            // Activer bouton suivant
+            document.getElementById('nextBtn').disabled = false;
+            
+            // Mettre à jour le score
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('totalQuestions').textContent = totalAnswered;
+        }
+
+        // Question suivante
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Afficher résultats
+        function showResults() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('finalScore').textContent = percentage + '%';
+            
+            const badgeEl = document.getElementById('badge');
+            if (percentage >= 80) {
+                badgeEl.textContent = '🥇 Badge Or';
+                badgeEl.className = 'badge gold';
+            } else if (percentage >= 60) {
+                badgeEl.textContent = '🥈 Badge Argent';
+                badgeEl.className = 'badge silver';
+            } else {
+                badgeEl.textContent = '🥉 Badge Bronze';
+                badgeEl.className = 'badge bronze';
+            }
+        }
+
+        // Retour au menu
+        function returnToMenu() {
+            document.getElementById('levelSelection').classList.remove('hidden');
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+        }
+
+        // Recommencer
+        function restartQuiz() {
+            startQuiz(currentLevel);
+        }
+    </script>
+</body>
+</html>
