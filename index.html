@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECUR-SIM | Formation interactive en secourisme suisse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lexend:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="14" y="8" width="4" height="16" fill="currentColor"/>
+                            <rect x="8" y="14" width="16" height="4" fill="currentColor"/>
+                            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">SECUR-SIM</span>
+                        <span class="logo-tagline">Formation Secourisme CH</span>
+                    </div>
+                </div>
+                <div class="header-stats" id="userStats">
+                    <div class="stat">
+                        <span class="stat-label">Quiz complétés</span>
+                        <span class="stat-value" id="totalQuiz">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Taux de réussite</span>
+                        <span class="stat-value" id="successRate">--%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-main">Testez vos compétences</span>
+                    <span class="title-sub">en situations d'urgence réelles</span>
+                </h1>
+                <p class="hero-description">
+                    Plateforme de formation interactive basée sur des cas cliniques vérifiables.
+                    Du BLS-AED à la médecine de catastrophe.
+                </p>
+                <div class="hero-badges">
+                    <span class="badge">📚 Conforme IAS</span>
+                    <span class="badge">🇨🇭 Normes suisses</span>
+                    <span class="badge">✓ Sources vérifiées</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Levels Section -->
+    <section class="levels">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Choisissez votre niveau</h2>
+                <p class="section-subtitle">Progression adaptée à votre formation</p>
+            </div>
+
+            <div class="levels-grid">
+                <!-- Niveau 1 -->
+                <div class="level-card" data-level="1">
+                    <div class="level-header level-1">
+                        <div class="level-number">01</div>
+                        <div class="level-badge">BLS-AED</div>
+                    </div>
+                    <div class="level-content">
+                        <h3 class="level-title">Secourisme de base</h3>
+                        <p class="level-description">
+                            Gestes de premiers secours, réanimation cardio-pulmonaire, 
+                            utilisation du défibrillateur. Niveau Samaritain/BLS-AED-SRC.
+                        </p>
+                        <ul class="level-features">
+                            <li>Arrêt cardio-respiratoire</li>
+                            <li>Hémorragies externes</li>
+                            <li>Malaises & traumatismes simples</li>
+                            <li>Position latérale de sécurité</li>
+                        </ul>
+                        <div class="level-stats">
+                            <div class="level-stat">
+                                <span class="stat-icon">📝</span>
+                                <span>10 cas</span>
+                            </div>
+                            <div class="level-stat">
+                                <span class="stat-icon">⏱️</span>
+                                <span>60-90 sec/cas</span>
+                            </div>
+                            <div class="level-stat">
+                                <span class="stat-icon">🎯</span>
+                                <span id="score-level-1">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="level-button" onclick="startQuiz(1)">
+                        Commencer le niveau 1
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Niveau 2 -->
+                <div class="level-card" data-level="2">
+                    <div class="level-header level-2">
+                        <div class="level-number">02</div>
+                        <div class="level-badge">FIRST RESPONDER</div>
+                    </div>
+                    <div class="level-content">
+                        <h3 class="level-title">Secourisme avancé</h3>
+                        <p class="level-description">
+                            Évaluation ABCDE, matériel paramédical, coordination d'équipe, 
+                            transmission au 144. Niveau Ambulancier/First Responder.
+                        </p>
+                        <ul class="level-features">
+                            <li>Polytraumatisme & choc</li>
+                            <li>Détresse respiratoire</li>
+                            <li>Situations complexes multi-victimes</li>
+                            <li>Matériel avancé (O₂, DSA)</li>
+                        </ul>
+                        <div class="level-stats">
+                            <div class="level-stat">
+                                <span class="stat-icon">📝</span>
+                                <span>10 cas</span>
+                            </div>
+                            <div class="level-stat">
+                                <span class="stat-icon">⏱️</span>
+                                <span>90-120 sec/cas</span>
+                            </div>
+                            <div class="level-stat">
+                                <span class="stat-icon">🎯</span>
+                                <span id="score-level-2">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="level-button" onclick="startQuiz(2)">
+                        Commencer le niveau 2
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Niveau 3 -->
+                <div class="level-card level-featured" data-level="3">
+                    <div class="level-header level-3">
+                        <div class="level-number">03</div>
+                        <div class="level-badge">CATASTROPHE</div>
+                    </div>
+                    <div class="level-content">
+                        <h3 class="level-title">Médecine de catastrophe</h3>
+                        <p class="level-description">
+                            Afflux massif de victimes, triage START, gestion CBRN, 
+                            coordination KSBS. Situations exceptionnelles.
+                        </p>
+                        <ul class="level-features">
+                            <li>Triage multi-victimes (>10)</li>
+                            <li>Ressources limitées</li>
+                            <li>Événements CBRN</li>
+                            <li>Chaîne de commandement</li>
+                        </ul>
+                        <div class="level-stats">
+                            <div class="level-stat">
+                                <span class="stat-icon">📝</span>
+                                <span>10 cas</span>
+                            </div>
+                            <div class="level-stat">
+                                <span class="stat-icon">⏱️</span>
+                                <span>120-180 sec/cas</span>
+                            </div>
+                            <div class="level-stat">
+                                <span class="stat-icon">🎯</span>
+                                <span id="score-level-3">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="level-button" onclick="startQuiz(3)">
+                        Commencer le niveau 3
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="about-title">Sources & Références</h2>
+                <div class="sources-grid">
+                    <div class="source-card">
+                        <h4>🏥 Interassociation de Sauvetage (IAS)</h4>
+                        <p>Référentiels BLS-AED-SRC & First Responder</p>
+                    </div>
+                    <div class="source-card">
+                        <h4>🚑 KSBS</h4>
+                        <p>Protocoles de médecine de catastrophe</p>
+                    </div>
+                    <div class="source-card">
+                        <h4>🇨🇭 OFSP</h4>
+                        <p>Directives CBRN & événements sanitaires</p>
+                    </div>
+                    <div class="source-card">
+                        <h4>🚁 REGA</h4>
+                        <p>Critères d'engagement héliporté</p>
+                    </div>
+                </div>
+                <p class="about-note">
+                    Tous les cas cliniques sont basés sur des sources vérifiables et 
+                    conformes aux normes suisses en vigueur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="logo-footer">SECUR-SIM</div>
+                    <p>Plateforme de formation en secourisme</p>
+                    <p style="margin-top: 8px; font-size: 12px; opacity: 0.7;">
+                        ⚠️ Outil éducatif | Basé sur sources officielles IAS, KSBS, SRC
+                    </p>
+                </div>
+                <div class="footer-right">
+                    <a href="about.html" class="btn-secondary" style="display: inline-block; text-decoration: none; margin-right: 8px;">
+                        📖 À propos & Disclaimer
+                    </a>
+                    <button class="btn-secondary" onclick="resetProgress()">
+                        🔄 Réinitialiser la progression
+                    </button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SECUR-SIM | Formation continue en secourisme suisse | En cas d'urgence : <strong>144</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Disclaimer Premier Lancement -->
+    <div id="disclaimerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+            <div style="padding: 32px; text-align: center; background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-radius: 16px 16px 0 0;">
+                <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+                <h3 style="font-size: 24px; font-weight: 800; color: #92400E; margin-bottom: 8px;">Avertissement Important</h3>
+                <p style="color: #78350F; font-size: 14px;">Veuillez lire attentivement avant de continuer</p>
+            </div>
+            <div style="padding: 32px;">
+                <div style="background: #FEE2E2; border-left: 4px solid #DC2626; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                    <p style="color: #7F1D1D; line-height: 1.8; font-size: 14px; margin: 0;">
+                        <strong style="display: block; margin-bottom: 8px; color: #991B1B;">🚨 Outil éducatif uniquement</strong>
+                        SECUR-SIM ne remplace pas une formation officielle de secourisme. En cas d'urgence réelle, appelez toujours le <strong>144</strong> (Suisse).
+                    </p>
+                </div>
+                
+                <h4 style="font-weight: 700; margin-bottom: 12px; color: #1E293B;">✓ Ce quiz est conçu pour :</h4>
+                <ul style="margin-bottom: 24px; color: #64748B; line-height: 1.8;">
+                    <li>Réviser vos connaissances théoriques</li>
+                    <li>Compléter votre formation officielle</li>
+                    <li>Vous entraîner sur des cas réalistes</li>
+                </ul>
+
+                <h4 style="font-weight: 700; margin-bottom: 12px; color: #1E293B;">📚 Basé sur des sources officielles :</h4>
+                <ul style="margin-bottom: 24px; color: #64748B; line-height: 1.8; font-size: 14px;">
+                    <li>IAS (Interassociation de Sauvetage)</li>
+                    <li>SRC (Swiss Resuscitation Council)</li>
+                    <li>KSBS (Service Sanitaire Coordonné)</li>
+                    <li>ERC Guidelines 2021</li>
+                </ul>
+
+                <div style="background: #DBEAFE; border-left: 4px solid #3B82F6; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                    <p style="color: #1E3A8A; font-size: 14px; line-height: 1.8; margin: 0;">
+                        <strong style="display: block; margin-bottom: 8px;">💡 Bon à savoir</strong>
+                        Chaque question indique ses sources. Les cas sont conçus pour être les plus réalistes possibles tout en restant pédagogiques.
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                    <a href="about.html" style="flex: 1; padding: 14px; background: #F1F5F9; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; color: #1E293B; text-align: center; text-decoration: none;">
+                        En savoir plus
+                    </a>
+                    <button onclick="acceptDisclaimer()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #3B82F6, #2563EB); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        J'ai compris, continuer
+                    </button>
+                </div>
+
+                <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94A3B8;">
+                    <a href="about.html" style="color: #3B82F6; text-decoration: none;">Lire le disclaimer complet</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Afficher le disclaimer au premier lancement
+        window.addEventListener('DOMContentLoaded', function() {
+            const disclaimerAccepted = localStorage.getItem('secursim_disclaimer_accepted');
+            if (!disclaimerAccepted) {
+                document.getElementById('disclaimerModal').style.display = 'flex';
+            }
+        });
+
+        function acceptDisclaimer() {
+            localStorage.setItem('secursim_disclaimer_accepted', 'true');
+            document.getElementById('disclaimerModal').style.display = 'none';
+        }
+    </script>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

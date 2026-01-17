@@ -1,0 +1,18 @@
+# Configuration Jekyll pour GitHub Pages
+theme: jekyll-theme-minimal
+title: SECUR-SIM
+description: Plateforme interactive de formation au secourisme suisse
+show_downloads: true
+google_analytics: UA-XXXXXXXXX-X
+
+# Exclude from processing
+exclude:
+  - README.md
+  - CONTRIBUTING.md
+  - CHANGELOG.md
+  - LICENSE
+  - .gitignore
+  - quiz_manager.py
+  - __pycache__/
+  - .vscode/
+  - .idea/

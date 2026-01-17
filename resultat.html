@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats | SECUR-SIM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lexend:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        /* Styles spécifiques page résultats */
+        body {
+            background: #f8fafc;
+        }
+        
+        .resultat-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            margin: 24px auto;
+        }
+        
+        .resultat-header {
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            color: white;
+            padding: 32px 24px;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+        }
+        
+        .resultat-header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+        }
+        
+        .resultat-header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .resultat-body {
+            padding: 32px 24px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title:first-child {
+            margin-top: 0;
+        }
+        
+        .niveau-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .niveau-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .niveau-1 .progress-bar .fill {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+        }
+        
+        .niveau-2 .progress-bar .fill {
+            background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+        }
+        
+        .niveau-3 .progress-bar .fill {
+            background: linear-gradient(90deg, #dc2626, #b91c1c);
+        }
+        
+        .badge-earned {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        .badge-gold {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+        }
+        
+        .badge-silver {
+            background: linear-gradient(135deg, #94a3b8, #64748b);
+            color: white;
+        }
+        
+        .badge-bronze {
+            background: linear-gradient(135deg, #fb923c, #f97316);
+            color: white;
+        }
+        
+        .badge-none {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .special-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .special-badge-icon {
+            font-size: 24px;
+        }
+        
+        .stat-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .stat-bar-label {
+            min-width: 100px;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .stat-bar-fill {
+            flex: 1;
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .stat-bar-fill-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            transition: width 0.6s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .recommendation-card {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .recommendation-priority {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        
+        .recommendation-action {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .recommendation-source {
+            font-size: 12px;
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        @media print {
+            .action-buttons {
+                display: none !important;
+            }
+            
+            .resultat-container {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resultat-container">
+        <!-- Header -->
+        <div class="resultat-header">
+            <h1>🎓 Récapitulatif SECUR-SIM</h1>
+            <p>Session du <span id="sessionDate"></span></p>
+        </div>
+        
+        <!-- Body -->
+        <div class="resultat-body">
+            <!-- Score Global -->
+            <div class="score-global">
+                <div class="metric">
+                    <span class="icon">📈</span>
+                    <strong id="scoreTotal">847</strong>
+                    <small>Points</small>
+                </div>
+                <div class="metric">
+                    <span class="icon">🎯</span>
+                    <strong id="tauxReussite">84.7%</strong>
+                    <small>Réussite</small>
+                </div>
+                <div class="metric">
+                    <span class="icon">⏱️</span>
+                    <strong id="tempstotal">18m 34s</strong>
+                    <small>Durée</small>
+                </div>
+                <div class="metric">
+                    <span class="icon">📅</span>
+                    <strong id="dateSession">16.01.26</strong>
+                    <small>Date</small>
+                </div>
+            </div>
+            
+            <!-- Détail par Niveau -->
+            <h2 class="section-title">📊 Détail par niveau</h2>
+            <div id="niveauxContainer">
+                <!-- Les cartes de niveau seront insérées ici par JavaScript -->
+            </div>
+            
+            <!-- Badges Obtenus -->
+            <h2 class="section-title">🏅 Badges obtenus</h2>
+            <div id="badgesContainer" class="badges-grid">
+                <!-- Les badges seront insérés ici par JavaScript -->
+            </div>
+            
+            <!-- Statistiques Détaillées -->
+            <h2 class="section-title">📈 Statistiques détaillées</h2>
+            
+            <div class="stats-columns">
+                <div class="stat-group">
+                    <h4>✓ Thématiques maîtrisées</h4>
+                    <ul id="masteredThemes">
+                        <!-- Généré par JavaScript -->
+                    </ul>
+                </div>
+                
+                <div class="stat-group">
+                    <h4>⚠️ À améliorer</h4>
+                    <ul id="improvementThemes">
+                        <!-- Généré par JavaScript -->
+                    </ul>
+                </div>
+            </div>
+            
+            <h4 style="margin-top: 24px; margin-bottom: 12px; color: #64748b; font-size: 14px;">Rapidité de réponse</h4>
+            <div id="speedStats">
+                <!-- Généré par JavaScript -->
+            </div>
+            
+            <!-- Recommandations -->
+            <h2 class="section-title">💡 Recommandations personnalisées</h2>
+            <div id="recommendationsContainer">
+                <!-- Les recommandations seront insérées ici par JavaScript -->
+            </div>
+            
+            <!-- Actions -->
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="window.location.href='index.html'">
+                    🔄 Retour à l'accueil
+                </button>
+                <button class="btn-secondary" onclick="window.print()">
+                    🖨️ Imprimer les résultats
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/scoring.js"></script>
+    <script>
+        // ========== CHARGEMENT DES RÉSULTATS ==========
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadResults();
+        });
+        
+        function loadResults() {
+            // Récupérer les données de session depuis sessionStorage
+            const sessionData = JSON.parse(sessionStorage.getItem('quizResults'));
+            
+            if (!sessionData) {
+                // Données de démonstration si aucune session
+                displayDemoResults();
+                return;
+            }
+            
+            // Afficher les résultats réels
+            displayResults(sessionData);
+        }
+        
+        function displayDemoResults() {
+            // Données de démonstration
+            const demoData = {
+                date: new Date().toLocaleDateString('fr-CH'),
+                scoreTotal: 847,
+                scoreMax: 1000,
+                tauxReussite: 84.7,
+                tempsTotal: 1114,
+                niveaux: [
+                    {
+                        niveau: 1,
+                        nom: 'BLS-AED',
+                        score: 285,
+                        scoreMax: 300,
+                        pourcentage: 95,
+                        badge: 'gold',
+                        questionsReussies: 10,
+                        questionsTotal: 10,
+                        tempsMoyen: 42
+                    },
+                    {
+                        niveau: 2,
+                        nom: 'First Responder',
+                        score: 312,
+                        scoreMax: 400,
+                        pourcentage: 78,
+                        badge: 'silver',
+                        questionsReussies: 8,
+                        questionsTotal: 10,
+                        tempsMoyen: 67,
+                        pointsFaibles: [
+                            { thematique: 'Traumatologie', score: 40, questions: '2/5' }
+                        ]
+                    },
+                    {
+                        niveau: 3,
+                        nom: 'Médecine de catastrophe',
+                        score: 250,
+                        scoreMax: 500,
+                        pourcentage: 50,
+                        badge: null,
+                        questionsReussies: 5,
+                        questionsTotal: 10,
+                        tempsMoyen: 89,
+                        pointsFaibles: [
+                            { thematique: 'Triage CBRN', score: 30, questions: '1/3' },
+                            { thematique: 'Logistique', score: 50, questions: '2/4' }
+                        ]
+                    }
+                ],
+                badges: [
+                    { icon: '🏆', nom: 'Expert BLS-AED' },
+                    { icon: '🥈', nom: 'Maîtrise FR' },
+                    { icon: '⚡', nom: 'Flash' },
+                    { icon: '🎯', nom: 'Perfectionniste' }
+                ],
+                masteredThemes: [
+                    { nom: 'RCP', pourcentage: 100 },
+                    { nom: 'DEA', pourcentage: 100 },
+                    { nom: 'Hémorragies', pourcentage: 90 }
+                ],
+                improvementThemes: [
+                    { nom: 'Triage catastrophe', pourcentage: 40 },
+                    { nom: 'CBRN', pourcentage: 50 },
+                    { nom: 'Traumatologie complexe', pourcentage: 60 }
+                ],
+                rapidite: {
+                    rapide: 8,
+                    moyen: 12,
+                    lent: 7,
+                    tresLent: 3
+                },
+                recommendations: [
+                    {
+                        priorite: 1,
+                        action: 'Revoir le module "Triage START"',
+                        source: 'Référentiel IAS MedCat 2023, p.45'
+                    },
+                    {
+                        priorite: 2,
+                        action: 'S\'entraîner sur les scénarios CBRN',
+                        source: 'Directive fédérale CBRN 2021'
+                    }
+                ]
+            };
+            
+            displayResults(demoData);
+        }
+        
+        function displayResults(data) {
+            // Date de session
+            document.getElementById('sessionDate').textContent = data.date || new Date().toLocaleDateString('fr-CH');
+            document.getElementById('dateSession').textContent = new Date().toLocaleDateString('fr-CH', { day: '2-digit', month: '2-digit', year: '2-digit' });
+            
+            // Score global
+            document.getElementById('scoreTotal').textContent = `${data.scoreTotal}/${data.scoreMax}`;
+            document.getElementById('tauxReussite').textContent = `${data.tauxReussite}%`;
+            document.getElementById('tempstotal').textContent = formatTime(data.tempsTotal);
+            
+            // Niveaux
+            displayNiveaux(data.niveaux);
+            
+            // Badges
+            displayBadges(data.badges);
+            
+            // Thématiques
+            displayThemes(data.masteredThemes, data.improvementThemes);
+            
+            // Rapidité
+            displaySpeedStats(data.rapidite);
+            
+            // Recommandations
+            displayRecommendations(data.recommendations);
+        }
+        
+        function displayNiveaux(niveaux) {
+            const container = document.getElementById('niveauxContainer');
+            container.innerHTML = '';
+            
+            niveaux.forEach(niveau => {
+                const card = document.createElement('article');
+                card.className = `niveau-card niveau-${niveau.niveau}`;
+                
+                const statusIcon = niveau.badge ? '✅' : '❌';
+                const badgeClass = niveau.badge ? `badge-${niveau.badge}` : 'badge-none';
+                const badgeName = getBadgeNameDisplay(niveau.badge);
+                
+                card.innerHTML = `
+                    <header>
+                        <span class="badge-status">${statusIcon}</span>
+                        <div>
+                            <h3>NIVEAU ${niveau.niveau}</h3>
+                            <p>${niveau.nom}</p>
+                        </div>
+                    </header>
+                    
+                    <div class="score-detail" style="margin: 12px 0;">
+                        <strong style="font-size: 20px;">${niveau.score}/${niveau.scoreMax} pts</strong>
+                        <span style="color: #64748b; margin-left: 8px;">${niveau.pourcentage}%</span>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="fill" style="width: ${niveau.pourcentage}%"></div>
+                    </div>
+                    
+                    <div class="badge-earned ${badgeClass}">${badgeName}</div>
+                    
+                    <dl style="display: grid; grid-template-columns: auto 1fr; gap: 8px; margin-top: 12px; font-size: 13px;">
+                        <dt style="color: #64748b;">Questions :</dt>
+                        <dd style="margin: 0; font-weight: 600;">${niveau.questionsReussies}/${niveau.questionsTotal}</dd>
+                        <dt style="color: #64748b;">Temps moyen :</dt>
+                        <dd style="margin: 0; font-weight: 600;">${niveau.tempsMoyen}s</dd>
+                    </dl>
+                    
+                    ${niveau.pointsFaibles && niveau.pointsFaibles.length > 0 ? `
+                        <div style="margin-top: 12px; padding: 12px; background: #fef2f2; border-radius: 6px;">
+                            <strong style="font-size: 12px; color: #dc2626; display: block; margin-bottom: 6px;">⚠️ Points à revoir :</strong>
+                            ${niveau.pointsFaibles.map(pf => `
+                                <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">
+                                    • ${pf.thematique} (${pf.questions})
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        function displayBadges(badges) {
+            const container = document.getElementById('badgesContainer');
+            container.innerHTML = '';
+            
+            badges.forEach(badge => {
+                const badgeEl = document.createElement('div');
+                badgeEl.className = 'special-badge';
+                badgeEl.innerHTML = `
+                    <span class="special-badge-icon">${badge.icon}</span>
+                    <span>${badge.nom}</span>
+                `;
+                container.appendChild(badgeEl);
+            });
+        }
+        
+        function displayThemes(mastered, improvement) {
+            // Thématiques maîtrisées
+            const masteredList = document.getElementById('masteredThemes');
+            masteredList.innerHTML = mastered.map(theme => 
+                `<li>✓ ${theme.nom} (${theme.pourcentage}%)</li>`
+            ).join('');
+            
+            // À améliorer
+            const improvementList = document.getElementById('improvementThemes');
+            improvementList.innerHTML = improvement.map(theme => 
+                `<li>⚠️ ${theme.nom} (${theme.pourcentage}%)</li>`
+            ).join('');
+        }
+        
+        function displaySpeedStats(stats) {
+            const container = document.getElementById('speedStats');
+            const total = stats.rapide + stats.moyen + stats.lent + stats.tresLent;
+            
+            container.innerHTML = `
+                <div class="stat-bar">
+                    <span class="stat-bar-label">⚡ &lt; 30s :</span>
+                    <div class="stat-bar-fill">
+                        <div class="stat-bar-fill-inner" style="width: ${(stats.rapide/total)*100}%">
+                            ${stats.rapide}
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-bar">
+                    <span class="stat-bar-label">🟢 30-60s :</span>
+                    <div class="stat-bar-fill">
+                        <div class="stat-bar-fill-inner" style="width: ${(stats.moyen/total)*100}%; background: linear-gradient(90deg, #10b981, #059669);">
+                            ${stats.moyen}
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-bar">
+                    <span class="stat-bar-label">🟡 60-90s :</span>
+                    <div class="stat-bar-fill">
+                        <div class="stat-bar-fill-inner" style="width: ${(stats.lent/total)*100}%; background: linear-gradient(90deg, #f59e0b, #d97706);">
+                            ${stats.lent}
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-bar">
+                    <span class="stat-bar-label">🔴 &gt; 90s :</span>
+                    <div class="stat-bar-fill">
+                        <div class="stat-bar-fill-inner" style="width: ${(stats.tresLent/total)*100}%; background: linear-gradient(90deg, #dc2626, #b91c1c);">
+                            ${stats.tresLent}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendationsContainer');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const card = document.createElement('div');
+                card.className = 'recommendation-card';
+                card.innerHTML = `
+                    <div class="recommendation-action">
+                        <span class="recommendation-priority">${rec.priorite}</span>
+                        ${rec.action}
+                    </div>
+                    ${rec.source ? `<div class="recommendation-source">📚 ${rec.source}</div>` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // ========== HELPERS ==========
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}m ${secs}s`;
+        }
+        
+        function getBadgeNameDisplay(badge) {
+            const names = {
+                platinum: '💎 Platine',
+                gold: '🥇 Or',
+                silver: '🥈 Argent',
+                bronze: '🥉 Bronze'
+            };
+            return names[badge] || '❌ Non validé';
+        }
+    </script>
+</body>
+</html>

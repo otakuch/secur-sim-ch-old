@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - SECUR-SIM</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lexend:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .about-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .disclaimer-banner {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 2px solid #F59E0B;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: start;
+            gap: 16px;
+        }
+
+        .disclaimer-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .disclaimer-content h3 {
+            color: #92400E;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .disclaimer-content p {
+            color: #78350F;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Lexend', sans-serif;
+            margin-bottom: 24px;
+            color: var(--gray-900);
+        }
+
+        .subsection-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 24px 0 16px;
+            color: var(--gray-900);
+        }
+
+        .about-text {
+            line-height: 1.8;
+            color: var(--gray-600);
+            margin-bottom: 16px;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .source-card {
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .source-card h4 {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .source-card p {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        .source-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .source-card a:hover {
+            text-decoration: underline;
+        }
+
+        .important-note {
+            background: #FEE2E2;
+            border-left: 4px solid #DC2626;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .important-note strong {
+            color: #991B1B;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .important-note p {
+            color: #7F1D1D;
+            line-height: 1.8;
+        }
+
+        .info-box {
+            background: #DBEAFE;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .info-box strong {
+            color: #1E40AF;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #1E3A8A;
+            line-height: 1.8;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .team-list li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info {
+            background: var(--gray-50);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        ul.feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.feature-list li {
+            padding: 8px 0 8px 32px;
+            position: relative;
+        }
+
+        ul.feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🚑</div>
+                    <div>
+                        <div class="logo-text">SECUR-SIM</div>
+                        <div class="version-badge">v2.0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-container">
+        <a href="index.html" class="back-link">← Retour à l'accueil</a>
+
+        <!-- Disclaimer Principal -->
+        <div class="disclaimer-banner">
+            <div class="disclaimer-icon">⚠️</div>
+            <div class="disclaimer-content">
+                <h3>Avertissement Important</h3>
+                <p><strong>SECUR-SIM est un outil éducatif uniquement.</strong> Il ne remplace en aucun cas une formation officielle de secourisme dispensée par des organismes agréés (Samaritains, Croix-Rouge, IAS, etc.). En cas d'urgence réelle, appelez toujours le <strong>144</strong> (Suisse) ou le numéro d'urgence local.</p>
+            </div>
+        </div>
+
+        <!-- À Propos -->
+        <div class="about-card">
+            <h2 class="section-title">📖 À propos de SECUR-SIM</h2>
+            
+            <p class="about-text">
+                <strong>SECUR-SIM</strong> est une plateforme interactive de formation au secourisme conçue spécifiquement pour le contexte suisse. Notre mission est de compléter les formations officielles en offrant un outil de révision et d'entraînement accessible à tous.
+            </p>
+
+            <h3 class="subsection-title">🎯 Objectifs Pédagogiques</h3>
+            <ul class="feature-list">
+                <li>Renforcer les connaissances acquises lors de formations officielles</li>
+                <li>Permettre une révision régulière des gestes de premiers secours</li>
+                <li>Proposer des cas cliniques réalistes basés sur des situations réelles</li>
+                <li>Offrir un feedback pédagogique immédiat avec sources vérifiables</li>
+                <li>Favoriser l'apprentissage continu et la montée en compétences</li>
+            </ul>
+
+            <h3 class="subsection-title">🎓 Public Cible</h3>
+            <p class="about-text">
+                SECUR-SIM s'adresse aux personnes ayant <strong>déjà suivi une formation de base en secourisme</strong> et souhaitant :
+            </p>
+            <ul class="feature-list">
+                <li>Réviser leurs connaissances théoriques</li>
+                <li>Préparer une recertification ou un examen</li>
+                <li>Maintenir leurs compétences à jour</li>
+                <li>S'entraîner sur des cas cliniques variés</li>
+            </ul>
+        </div>
+
+        <!-- Méthodologie -->
+        <div class="about-card">
+            <h2 class="section-title">🔬 Méthodologie de Conception</h2>
+            
+            <h3 class="subsection-title">📚 Sources Officielles</h3>
+            <p class="about-text">
+                Toutes les questions et réponses de SECUR-SIM sont élaborées à partir de sources officielles reconnues en Suisse et en Europe :
+            </p>
+
+            <div class="sources-grid">
+                <div class="source-card">
+                    <h4>🇨🇭 IAS</h4>
+                    <p>Interassociation de Sauvetage</p>
+                    <p>Référentiels BLS-AED, First Responder et Médecine de Catastrophe</p>
+                    <a href="https://www.ivr-ias.ch/" target="_blank">ivr-ias.ch →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>🏥 KSBS</h4>
+                    <p>Service Sanitaire Coordonné Suisse</p>
+                    <p>Protocoles de coordination et gestion multi-victimes</p>
+                    <a href="https://www.ksbs.ch/" target="_blank">ksbs.ch →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>❤️ SRC</h4>
+                    <p>Swiss Resuscitation Council</p>
+                    <p>Guidelines BLS-AED 2021 et recommandations de réanimation</p>
+                    <a href="https://www.resuscitation.ch/" target="_blank">resuscitation.ch →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>🇪🇺 ERC</h4>
+                    <p>European Resuscitation Council</p>
+                    <p>Guidelines européennes de réanimation 2021</p>
+                    <a href="https://www.erc.edu/" target="_blank">erc.edu →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>🏛️ OFSP</h4>
+                    <p>Office Fédéral de la Santé Publique</p>
+                    <p>Directives et recommandations sanitaires suisses</p>
+                    <a href="https://www.bag.admin.ch/" target="_blank">bag.admin.ch →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>🚁 REGA</h4>
+                    <p>Garde Aérienne Suisse</p>
+                    <p>Protocoles d'intervention et coordination</p>
+                    <a href="https://www.rega.ch/" target="_blank">rega.ch →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>🩺 PHTLS</h4>
+                    <p>Prehospital Trauma Life Support</p>
+                    <p>9ème édition - Standards de traumatologie pré-hospitalière</p>
+                    <a href="https://www.naemt.org/phtls" target="_blank">naemt.org →</a>
+                </div>
+
+                <div class="source-card">
+                    <h4>🏥 WHO</h4>
+                    <p>Organisation Mondiale de la Santé</p>
+                    <p>Emergency Response Framework et protocoles internationaux</p>
+                    <a href="https://www.who.int/" target="_blank">who.int →</a>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">✍️ Processus de Création</h3>
+            <p class="about-text">Chaque question suit un processus rigoureux :</p>
+            <ol>
+                <li><strong>Recherche documentaire</strong> : Consultation des référentiels officiels</li>
+                <li><strong>Rédaction</strong> : Cas clinique réaliste basé sur des situations réelles</li>
+                <li><strong>Validation</strong> : Vérification de la cohérence médicale et des sources</li>
+                <li><strong>Relecture</strong> : Contrôle par des professionnels du secourisme</li>
+                <li><strong>Test</strong> : Validation technique et pédagogique</li>
+            </ol>
+
+            <h3 class="subsection-title">🎯 Critères de Qualité</h3>
+            <ul class="feature-list">
+                <li>Cas cliniques réalistes (200-400 caractères)</li>
+                <li>Exactement 1 réponse correcte par question</li>
+                <li>Explications pédagogiques détaillées pour toutes les options</li>
+                <li>Compléments d'information pour les bonnes réponses</li>
+                <li>Sources vérifiables et à jour citées pour chaque option</li>
+                <li>Niveau de difficulté adapté au public cible</li>
+            </ul>
+        </div>
+
+        <!-- Limites et Responsabilités -->
+        <div class="about-card">
+            <h2 class="section-title">⚖️ Limites et Responsabilités</h2>
+
+            <div class="important-note">
+                <strong>🚨 CECI N'EST PAS UN OUTIL DE DIAGNOSTIC MÉDICAL</strong>
+                <p>
+                    SECUR-SIM est strictement un outil pédagogique. Il ne peut ni ne doit être utilisé pour diagnostiquer, traiter ou prendre des décisions médicales en situation réelle. En cas d'urgence, contactez immédiatement les services d'urgence (144 en Suisse).
+                </p>
+            </div>
+
+            <h3 class="subsection-title">📋 Limitations</h3>
+            <ul class="feature-list">
+                <li><strong>Formation théorique uniquement</strong> : SECUR-SIM ne remplace pas la pratique des gestes sur mannequin</li>
+                <li><strong>Certification non reconnue</strong> : La réussite au quiz ne constitue pas une certification officielle</li>
+                <li><strong>Évolution des protocoles</strong> : Les guidelines médicales évoluent ; référez-vous toujours aux versions les plus récentes</li>
+                <li><strong>Contexte suisse</strong> : Les protocoles sont basés sur les standards suisses et peuvent différer dans d'autres pays</li>
+                <li><strong>Simplification pédagogique</strong> : Les cas réels sont toujours plus complexes que les scénarios présentés</li>
+            </ul>
+
+            <h3 class="subsection-title">⚠️ Responsabilité de l'Utilisateur</h3>
+            <p class="about-text">En utilisant SECUR-SIM, vous reconnaissez que :</p>
+            <ul class="feature-list">
+                <li>Vous avez suivi ou suivrez une formation officielle de secourisme</li>
+                <li>Vous utilisez cet outil à des fins éducatives uniquement</li>
+                <li>Vous ne vous substituez pas aux services d'urgence professionnels</li>
+                <li>Vous consultez les sources officielles pour toute décision médicale</li>
+                <li>Les créateurs de SECUR-SIM ne peuvent être tenus responsables de l'utilisation faite de cet outil</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>✅ Bonne Pratique</strong>
+                <p>
+                    Utilisez SECUR-SIM comme complément à votre formation officielle. Participez régulièrement à des cours de recyclage (recommandés tous les 2 ans pour le BLS-AED) et pratiquez les gestes sur mannequin.
+                </p>
+            </div>
+        </div>
+
+        <!-- Mentions Légales -->
+        <div class="about-card">
+            <h2 class="section-title">📜 Mentions Légales</h2>
+
+            <h3 class="subsection-title">©️ Licence</h3>
+            <p class="about-text">
+                SECUR-SIM est distribué sous licence <strong>MIT</strong>. Le code source est ouvert et disponible sur GitHub. Vous êtes libre de l'utiliser, le modifier et le distribuer, en conservant la notice de copyright.
+            </p>
+
+            <h3 class="subsection-title">🔒 Données Personnelles</h3>
+            <p class="about-text">
+                <strong>SECUR-SIM ne collecte aucune donnée personnelle.</strong> Toutes les données (scores, progression) sont stockées localement dans votre navigateur via LocalStorage. Aucune information n'est transmise à des serveurs externes.
+            </p>
+
+            <h3 class="subsection-title">🍪 Cookies</h3>
+            <p class="about-text">
+                SECUR-SIM n'utilise pas de cookies. Le stockage local (LocalStorage) est utilisé uniquement pour sauvegarder votre progression et ne contient aucune information personnelle identifiable.
+            </p>
+
+            <h3 class="subsection-title">🌐 Hébergement</h3>
+            <p class="about-text">
+                Cette application est hébergée sur GitHub Pages. Consultez la <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank">politique de confidentialité de GitHub</a> pour plus d'informations.
+            </p>
+
+            <h3 class="subsection-title">⚖️ Clause de Non-Responsabilité</h3>
+            <p class="about-text">
+                SECUR-SIM est fourni "tel quel", sans garantie d'aucune sorte, expresse ou implicite. Les créateurs ne garantissent pas l'exactitude, l'exhaustivité ou l'actualité des informations fournies. L'utilisation de SECUR-SIM se fait à vos propres risques.
+            </p>
+        </div>
+
+        <!-- Contact et Contribution -->
+        <div class="about-card">
+            <h2 class="section-title">🤝 Contribuer et Contacter</h2>
+
+            <h3 class="subsection-title">💡 Comment Contribuer</h3>
+            <p class="about-text">
+                SECUR-SIM est un projet open-source. Vous pouvez contribuer de plusieurs façons :
+            </p>
+            <ul class="feature-list">
+                <li>Proposer de nouvelles questions (via GitHub)</li>
+                <li>Signaler des erreurs ou imprécisions</li>
+                <li>Améliorer le code ou le design</li>
+                <li>Traduire en d'autres langues</li>
+                <li>Partager le projet avec d'autres secouristes</li>
+            </ul>
+            <p class="about-text">
+                Consultez notre <a href="CONTRIBUTING.md" target="_blank">Guide de Contribution</a> pour plus de détails.
+            </p>
+
+            <div class="contact-info">
+                <h4 style="margin-bottom: 16px;">📧 Contact</h4>
+                <p style="margin-bottom: 8px;"><strong>GitHub</strong> : <a href="https://github.com/yourusername/secur-sim" target="_blank">github.com/yourusername/secur-sim</a></p>
+                <p style="margin-bottom: 8px;"><strong>Issues</strong> : <a href="https://github.com/yourusername/secur-sim/issues" target="_blank">Signaler un problème</a></p>
+                <p style="margin-bottom: 8px;"><strong>Discussions</strong> : <a href="https://github.com/yourusername/secur-sim/discussions" target="_blank">Poser une question</a></p>
+            </div>
+
+            <h3 class="subsection-title">🙏 Remerciements</h3>
+            <p class="about-text">
+                SECUR-SIM n'existerait pas sans les organisations qui publient et maintiennent les référentiels officiels de secourisme. Un immense merci à :
+            </p>
+            <ul class="feature-list">
+                <li>L'Interassociation de Sauvetage (IAS)</li>
+                <li>Le Service Sanitaire Coordonné Suisse (KSBS)</li>
+                <li>Le Swiss Resuscitation Council (SRC)</li>
+                <li>L'European Resuscitation Council (ERC)</li>
+                <li>Tous les formateurs et professionnels du secourisme</li>
+                <li>La communauté open-source qui contribue au projet</li>
+            </ul>
+        </div>
+
+        <!-- Version et Historique -->
+        <div class="about-card">
+            <h2 class="section-title">📊 Version et Historique</h2>
+            
+            <p class="about-text">
+                <strong>Version actuelle</strong> : 2.0.0 (Janvier 2026)
+            </p>
+
+            <h3 class="subsection-title">🆕 Nouveautés v2.0</h3>
+            <ul class="feature-list">
+                <li>Système de sélection aléatoire : 20 questions parmi 100 par niveau</li>
+                <li>Rejouabilité infinie avec bouton "Nouveau tirage"</li>
+                <li>Documentation complète (guides de création, contribution)</li>
+                <li>Script de validation Python pour contrôle qualité</li>
+                <li>8 nouvelles questions de haute qualité pour le Niveau 1</li>
+            </ul>
+
+            <p class="about-text">
+                Consultez le <a href="CHANGELOG.md" target="_blank">CHANGELOG complet</a> pour l'historique détaillé des versions.
+            </p>
+
+            <h3 class="subsection-title">🎯 Objectif v2.1</h3>
+            <p class="about-text">
+                Atteindre <strong>100 questions par niveau</strong> (300 questions au total) d'ici Q2 2026.
+            </p>
+
+            <div class="info-box">
+                <strong>📊 Progression Actuelle</strong>
+                <p style="margin-bottom: 8px;">Niveau 1 - BLS-AED : 18/100 questions (18%)</p>
+                <p style="margin-bottom: 8px;">Niveau 2 - First Responder : 10/100 questions (10%)</p>
+                <p style="margin-bottom: 8px;">Niveau 3 - Catastrophe : 10/100 questions (10%)</p>
+                <p><strong>Total : 38/300 questions (12.7%)</strong></p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 48px 0; padding: 32px; background: var(--gray-50); border-radius: 12px;">
+            <p style="font-size: 18px; font-weight: 600; color: var(--gray-900); margin-bottom: 16px;">
+                Développé avec ❤️ pour sauver des vies
+            </p>
+            <p style="color: var(--gray-600);">
+                SECUR-SIM - Formation au Secourisme Suisse 🇨🇭
+            </p>
+            <div style="margin-top: 24px;">
+                <a href="index.html" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                    Commencer le Quiz →
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

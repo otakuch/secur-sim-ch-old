@@ -1,0 +1,47 @@
+{
+  "name": "secur-sim",
+  "version": "2.0.0",
+  "description": "Plateforme interactive de formation au secourisme suisse avec système de sélection aléatoire de questions",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "validate": "python quiz_manager.py",
+    "validate:1": "python quiz_manager.py validate 1",
+    "validate:2": "python quiz_manager.py validate 2",
+    "validate:3": "python quiz_manager.py validate 3",
+    "stats": "python quiz_manager.py stats",
+    "deploy": "echo 'Push to main branch for automatic GitHub Pages deployment'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/secur-sim.git"
+  },
+  "keywords": [
+    "secourisme",
+    "quiz",
+    "formation",
+    "bls",
+    "aed",
+    "first-responder",
+    "catastrophe",
+    "suisse",
+    "switzerland",
+    "medical",
+    "training",
+    "education",
+    "interactive",
+    "e-learning"
+  ],
+  "author": "SECUR-SIM Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/secur-sim/issues"
+  },
+  "homepage": "https://yourusername.github.io/secur-sim/",
+  "engines": {
+    "node": ">=14.0.0",
+    "python": ">=3.7.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
